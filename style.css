@@ -1,0 +1,29 @@
+/* Стили для игры-кликера */
+.game-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#score {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.game-btn {
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.game-btn:hover {
+    background-color: #218838;
+}
+
+.game-btn:active {
+    transform: scale(0.95); /* Анимация нажатия кнопки */
+}
