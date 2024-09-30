@@ -1,91 +1,21 @@
-// Счётчик кликов и улучшений
-let score = localStorage.getItem('score') ? parseInt(localStorage.getItem('score')) : 0;
-let clickMultiplier = localStorage.getItem('clickMultiplier') ? parseInt(localStorage.getItem('clickMultiplier')) : 1;
-let autoClickerCost = 50;
-let doubleClickCost = 100;
-let superClickCost = 250;
-let autoClickerActive = localStorage.getItem('autoClickerActive') === 'true' ? true : false;
-let superClickActive = localStorage.getItem('superClickActive') === 'true' ? true : false;
-
-// Обновляем счётчик
-function updateScore() {
-    document.getElementById('score').innerText = `Score: ${score}`;
-    localStorage.setItem('score', score);
+/* Общие стили для страницы */
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+    background-color: #ffebcd; /* Цвет фона */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-// Клик на кнопку "Click me!"
-document.getElementById('click-btn').addEventListener('click', function() {
-    score += clickMultiplier;
-    updateScore();
-});
-
-// Покупка авто-кликера
-document.getElementById('auto-clicker').addEventListener('click', function() {
-    if (score >= autoClickerCost && !autoClickerActive) {
-        score -= autoClickerCost;
-        updateScore();
-        autoClickerActive = true;
-        localStorage.setItem('autoClickerActive', 'true');
-        startAutoClicker();
-        this.innerText = 'Auto-Clicker Active';
-        this.disabled = true;
-    }
-});
-
-// Покупка двойного клика
-document.getElementById('double-click').addEventListener('click', function() {
-    if (score >= doubleClickCost) {
-        score -= doubleClickCost;
-        clickMultiplier = 2;
-        updateScore();
-        localStorage.setItem('clickMultiplier', clickMultiplier);
-        this.innerText = 'Double Click Active';
-        this.disabled = true;
-    }
-});
-
-// Покупка супер-клика
-document.getElementById('super-click').addEventListener('click', function() {
-    if (score >= superClickCost && !superClickActive) {
-        score -= superClickCost;
-        clickMultiplier = 5; // Теперь клики увеличиваются в 5 раз
-        updateScore();
-        superClickActive = true;
-        localStorage.setItem('superClickActive', 'true');
-        this.innerText = 'Super Click Active';
-        this.disabled = true;
-    }
-});
-
-// Функция для авто-кликера
-function startAutoClicker() {
-    setInterval(function() {
-        score += 1;
-        updateScore();
-    }, 1000); // Один клик каждую секунду
+/* Стиль для хомяка */
+#hamster {
+    position: absolute;
+    width: 96px;
+    height: 96px;
+    background-image: url('hamster.png'); /* Картинка хомяка */
+    background-size: contain;
+    background-repeat: no-repeat;
 }
-
-// Кнопка сброса игры
-document.getElementById('reset-game').addEventListener('click', function() {
-    localStorage.clear();
-    location.reload();
-});
-
-// Инициализация
-if (autoClickerActive) {
-    startAutoClicker();
-    document.getElementById('auto-clicker').innerText = 'Auto-Clicker Active';
-    document.getElementById('auto-clicker').disabled = true;
-}
-
-if (clickMultiplier === 2) {
-    document.getElementById('double-click').innerText = 'Double Click Active';
-    document.getElementById('double-click').disabled = true;
-}
-
-if (superClickActive) {
-    document.getElementById('super-click').innerText = 'Super Click Active';
-    document.getElementById('super-click').disabled = true;
-}
-
-updateScore();
