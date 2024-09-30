@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multifunctional Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Multifunctional Website!</h1>
+        <nav>
+            <ul>
+                <li><a href="#calculator">Calculator</a></li>
+                <li><a href="#clock">Clock</a></li>
+                <li><a href="#jokes">Jokes</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Калькулятор -->
+        <section id="calculator">
+            <h2>Calculator</h2>
+            <input type="number" id="num1" placeholder="Enter first number">
+            <input type="number" id="num2" placeholder="Enter second number">
+            <select id="operation">
+                <option value="add">+</option>
+                <option value="subtract">-</option>
+                <option value="multiply">*</option>
+                <option value="divide">/</option>
+            </select>
+            <button onclick="calculate()">Calculate</button>
+            <p id="calcResult"></p>
+        </section>
+
+        <!-- Часы -->
+        <section id="clock">
+            <h2>Clock & Alarm</h2>
+            <p id="time"></p>
+            <label for="alarmTime">Set Alarm (HH:MM):</label>
+            <input type="time" id="alarmTime">
+            <button onclick="setAlarm()">Set Alarm</button>
+            <p id="alarmMessage"></p>
+        </section>
+
+        <!-- Шутки -->
+        <section id="jokes">
+            <h2>Random Jokes</h2>
+            <button onclick="getJoke()">Get a Joke</button>
+            <p id="jokeDisplay"></p>
+        </section>
+
+        <!-- Контактная форма -->
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <form id="contactForm">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" required>
+                
+                <label for="email">Your Email:</label>
+                <input type="email" id="email" required>
+
+                <label for="message">Your Message:</label>
+                <textarea id="message" required></textarea>
+
+                <button type="submit">Send</button>
+            </form>
+            <p id="formMessage"></p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
