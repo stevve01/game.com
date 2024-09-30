@@ -13,8 +13,12 @@
             <ul>
                 <li><a href="#calculator">Calculator</a></li>
                 <li><a href="#clock">Clock</a></li>
+                <li><a href="#timer">Timer</a></li>
                 <li><a href="#jokes">Jokes</a></li>
+                <li><a href="#geolocation">Geolocation</a></li>
+                <li><a href="#qr">QR Code</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><button id="themeToggle">Switch Theme</button></li>
             </ul>
         </nav>
     </header>
@@ -45,11 +49,35 @@
             <p id="alarmMessage"></p>
         </section>
 
+        <!-- Таймер -->
+        <section id="timer">
+            <h2>Countdown Timer</h2>
+            <label for="minutes">Minutes:</label>
+            <input type="number" id="minutes" placeholder="Minutes">
+            <button onclick="startTimer()">Start Timer</button>
+            <p id="timerDisplay"></p>
+        </section>
+
         <!-- Шутки -->
         <section id="jokes">
             <h2>Random Jokes</h2>
             <button onclick="getJoke()">Get a Joke</button>
             <p id="jokeDisplay"></p>
+        </section>
+
+        <!-- Геолокация -->
+        <section id="geolocation">
+            <h2>Geolocation</h2>
+            <button onclick="getLocation()">Get Location</button>
+            <p id="locationDisplay"></p>
+        </section>
+
+        <!-- Генератор QR-кодов -->
+        <section id="qr">
+            <h2>QR Code Generator</h2>
+            <input type="text" id="qrInput" placeholder="Enter text to generate QR code">
+            <button onclick="generateQRCode()">Generate QR Code</button>
+            <div id="qrCode"></div>
         </section>
 
         <!-- Контактная форма -->
