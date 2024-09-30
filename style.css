@@ -13,9 +13,9 @@ body, html {
 /* Стиль для хомяка */
 #hamster {
     position: absolute;
-    width: 96px;
-    height: 96px;
-    background-image: url('hamster.png'); /* Картинка хомяка */
+    width: 100px;
+    height: auto;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Hamster_transparent.png/600px-Hamster_transparent.png'); /* Хомяк без фона */
     background-size: contain;
     background-repeat: no-repeat;
 }
