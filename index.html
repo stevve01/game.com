@@ -101,12 +101,18 @@
         <i class="fas fa-smile-beam"></i> Улыбнись и продолжай кликать!
     </div>
 
+    <!-- Звуковой эффект -->
+    <audio id="clickSound" src="https://www.soundjay.com/button/sounds/button-1.mp3"></audio>
+
     <script>
         let score = 0;
         let upgrades = 0;
         let pointsPerClick = 1;
 
         document.getElementById("clickButton").addEventListener("click", function() {
+            // Воспроизведение звукового эффекта
+            document.getElementById("clickSound").play();
+
             score += pointsPerClick;
             document.getElementById("score").textContent = "Счет: " + score;
 
