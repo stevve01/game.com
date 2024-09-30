@@ -29,6 +29,17 @@ function calculate() {
     document.getElementById('calcResult').innerText = `Result: ${result}`;
 }
 
+// Открытие и закрытие модальных окон
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style.display = 'block';
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style.display = 'none';
+}
+
 // Часы и будильник
 function updateTime() {
     const time = new Date();
