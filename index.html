@@ -3,56 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кликер Игра</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Хомяк Пугалка</title>
     <style>
-        /* Добавьте стили для интерфейса здесь */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        img {
+            max-width: 300px;
+            border-radius: 10px;
+            display: none; /* Изначально скрыто */
+        }
     </style>
 </head>
 <body>
-    <h1><i class="fas fa-gamepad"></i> Кликер Игра</h1>
-    <button id="clickButton">Кликни меня!</button>
-    <div id="score">Счет: 0</div>
-    <div id="upgrades">Улучшения: 0</div>
-    <div id="level">Уровень: 1</div>
-    <div id="achievements">Достижения: 0</div>
-    <button id="shopButton">Магазин</button>
-    <button id="achievementButton">Достижения</button>
-
-    <!-- Модальное окно для магазина -->
-    <div id="shopModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeShop">&times;</span>
-            <h2>Магазин</h2>
-            <div class="upgrade-item">
-                <span>Улучшение 1 (10 очков)</span>
-                <button class="buy-upgrade" data-cost="10">Купить</button>
-            </div>
-            <div class="upgrade-item">
-                <span>Улучшение 2 (20 очков)</span>
-                <button class="buy-upgrade" data-cost="20">Купить</button>
-            </div>
-            <div class="upgrade-item">
-                <span>Улучшение 3 (30 очков)</span>
-                <button class="buy-upgrade" data-cost="30">Купить</button>
-            </div>
-        </div>
+    <div>
+        <h1>Нажми кнопку, если сможешь!</h1>
+        <button id="scareButton">Пугай меня!</button>
+        <img id="hamster" src="https://steamuserimages-a.akamaihd.net/ugc/2046356675955355460/C41FCED78CBBBDB3F10739523313C8D679C6471C/?imw=512&amp;imh=288&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=true" alt="Пугающий хомяк">
+        <audio id="timerSound" src="https://samplefocus.com/samples/clock-ticking-sound" preload="auto"></audio>
+        <audio id="screamSound" src="https://voicebot.su/ru/sound/33649-zvuk-546gtu7h/" preload="auto"></audio>
     </div>
-
-    <!-- Модальное окно для достижений -->
-    <div id="achievementModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeAchievements">&times;</span>
-            <h2>Достижения</h2>
-            <div id="achievementList"></div>
-        </div>
-    </div>
-
     <script>
-        // Добавьте логику JavaScript здесь
+        const scareButton = document.getElementById('scareButton');
+        const hamster = document.getElementById('hamster');
+        const timerSound = document.getElementById('timerSound');
+        const screamSound = document.getElementById('screamSound');
+
+        scareButton.addEventListener('click', () => {
+            // Остановим звук таймера и начнем звук скримера
+            timerSound.pause();
+            timerSound.currentTime = 0; // Сбросить время таймера
+            screamSound.play();
+
+            // Показываем хомяка через 0.5 секунды (чтобы создать эффект неожиданности)
+            setTimeout(() => {
+                hamster.style.display = 'block';
+            }, 500);
+
+            // Скрываем хомяка через 1.5 секунды после его появления
+            setTimeout(() => {
+                hamster.style.display = 'none';
+            }, 2000); // Время, сколько показывать хомяка
+        });
     </script>
 </body>
 </html>
+
 
 
 
