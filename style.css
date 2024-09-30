@@ -13,9 +13,10 @@ body, html {
 /* Стиль для хомяка */
 #hamster {
     position: absolute;
-    width: 100px;
+    width: 150px;
     height: auto;
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Hamster_transparent.png/600px-Hamster_transparent.png'); /* Хомяк без фона */
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Hamster_transparent.png/600px-Hamster_transparent.png'); /* Ссылка на хомяка */
     background-size: contain;
     background-repeat: no-repeat;
+    z-index: 10;
 }
