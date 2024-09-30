@@ -48,14 +48,27 @@
             transform: scale(1.05);
         }
 
-        #clickButton i {
-            margin-right: 10px;
-        }
-
-        #score {
+        #score, #upgrades {
             font-size: 40px;
             margin-top: 30px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        #upgradeButton {
+            padding: 10px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 20px;
+        }
+
+        #upgradeButton:hover {
+            background-color: #27ae60;
+            transform: scale(1.05);
         }
 
         .icon {
@@ -77,6 +90,12 @@
     <!-- Отображение счета -->
     <div id="score">Счет: 0</div>
 
+    <!-- Отображение уровня улучшений -->
+    <div id="upgrades">Улучшения: 0</div>
+
+    <!-- Кнопка для улучшений -->
+    <button id="upgradeButton">Купить улучшение (50 очков)</button>
+
     <!-- Иконка для настроения -->
     <div class="icon">
         <i class="fas fa-smile-beam"></i> Улыбнись и продолжай кликать!
@@ -84,9 +103,11 @@
 
     <script>
         let score = 0;
+        let upgrades = 0;
+        let pointsPerClick = 1;
 
         document.getElementById("clickButton").addEventListener("click", function() {
-            score++;
+            score += pointsPerClick;
             document.getElementById("score").textContent = "Счет: " + score;
 
             // Меняем иконку настроения в зависимости от счета
@@ -98,9 +119,25 @@
                 iconElement.className = "fas fa-grin-stars";
             }
         });
+
+        document.getElementById("upgradeButton").addEventListener("click", function() {
+            if (score >= 50) {
+                score -= 50; // Уменьшаем счет на 50
+                upgrades++; // Увеличиваем уровень улучшений
+                pointsPerClick++; // Увеличиваем количество очков за клик
+                document.getElementById("score").textContent = "Счет: " + score;
+                document.getElementById("upgrades").textContent = "Улучшения: " + upgrades;
+
+                // Обновляем текст кнопки
+                this.textContent = "Купить улучшение (" + (50 * (upgrades + 1)) + " очков)";
+            } else {
+                alert("У вас недостаточно очков для улучшения!");
+            }
+        });
     </script>
 
 </body>
 </html>
+
 
 
