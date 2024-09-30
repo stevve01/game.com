@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multifunctional Website</title>
+    <title>Modern Calculator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -27,20 +27,41 @@
         <div id="calculatorModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('calculatorModal')">&times;</span>
-                <h2>Calculator</h2>
-                <input type="number" id="num1" placeholder="Enter first number">
-                <input type="number" id="num2" placeholder="Enter second number">
-                <select id="operation">
-                    <option value="add">+</option>
-                    <option value="subtract">-</option>
-                    <option value="multiply">*</option>
-                    <option value="divide">/</option>
-                </select>
-                <button onclick="calculate()">Calculate</button>
+                <h2>Modern Calculator</h2>
+                <div id="calculator">
+                    <input type="text" id="display" readonly>
+                    <div class="buttons">
+                        <button onclick="clearDisplay()">C</button>
+                        <button onclick="deleteLast()">DEL</button>
+                        <button onclick="appendOperator('%')">%</button>
+                        <button onclick="appendOperator('/')">÷</button>
+
+                        <button onclick="appendNumber(7)">7</button>
+                        <button onclick="appendNumber(8)">8</button>
+                        <button onclick="appendNumber(9)">9</button>
+                        <button onclick="appendOperator('*')">×</button>
+
+                        <button onclick="appendNumber(4)">4</button>
+                        <button onclick="appendNumber(5)">5</button>
+                        <button onclick="appendNumber(6)">6</button>
+                        <button onclick="appendOperator('-')">−</button>
+
+                        <button onclick="appendNumber(1)">1</button>
+                        <button onclick="appendNumber(2)">2</button>
+                        <button onclick="appendNumber(3)">3</button>
+                        <button onclick="appendOperator('+')">+</button>
+
+                        <button onclick="appendNumber(0)">0</button>
+                        <button onclick="appendDot()">.</button>
+                        <button onclick="calculate()">=</button>
+                        <button onclick="sqrt()">√</button>
+                    </div>
+                </div>
                 <p id="calcResult"></p>
             </div>
         </div>
 
+        <!-- Остальные модальные окна (без изменений) -->
         <div id="clockModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('clockModal')">&times;</span>
@@ -59,52 +80,11 @@
             </div>
         </div>
 
-        <div id="jokesModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal('jokesModal')">&times;</span>
-                <h2>Random Jokes</h2>
-                <button onclick="getJoke()">Get a Joke</button>
-                <p id="jokeDisplay"></p>
-            </div>
-        </div>
+        <!-- Остальные секции... -->
 
-        <div id="geolocationModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal('geolocationModal')">&times;</span>
-                <h2>Geolocation</h2>
-                <button onclick="getLocation()">Get Location</button>
-                <p id="locationDisplay"></p>
-            </div>
-        </div>
-
-        <div id="qrModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal('qrModal')">&times;</span>
-                <h2>QR Code Generator</h2>
-                <input type="text" id="qrInput" placeholder="Enter text to generate QR code">
-                <button onclick="generateQRCode()">Generate QR Code</button>
-                <div id="qrCode"></div>
-            </div>
-        </div>
-
-        <div id="contactModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal('contactModal')">&times;</span>
-                <h2>Contact Us</h2>
-                <form id="contactForm">
-                    <label for="name">Your Name:</label>
-                    <input type="text" id="name" required>
-                    <label for="email">Your Email:</label>
-                    <input type="email" id="email" required>
-                    <label for="message">Your Message:</label>
-                    <textarea id="message" required></textarea>
-                    <button type="submit">Send</button>
-                </form>
-                <p id="formMessage"></p>
-            </div>
-        </div>
     </main>
 
     <script src="script.js"></script>
 </body>
 </html>
+
