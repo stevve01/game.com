@@ -13,7 +13,7 @@
         body {
             font-family: 'Roboto', sans-serif;
             text-align: center;
-            background-image: url('https://furman.top/uploads/posts/2023-05/1683325516_furman-top-p-fon-dlya-klikera-vkontakte-67.png'); /* Фон игры */
+            background-image: url('https://furman.top/uploads/posts/2023-05/1683325516_furman-top-p-fon-dlya-klikera-vkontakte-67.png');
             background-size: cover;
             color: white;
             margin: 0;
@@ -54,7 +54,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
-        #upgradeButton {
+        #upgradeButton, #shopButton {
             padding: 10px 30px;
             font-size: 20px;
             cursor: pointer;
@@ -66,7 +66,7 @@
             margin-top: 20px;
         }
 
-        #upgradeButton:hover {
+        #upgradeButton:hover, #shopButton:hover {
             background-color: #27ae60;
             transform: scale(1.05);
         }
@@ -76,33 +76,89 @@
             font-size: 24px;
             color: #f1c40f;
         }
+
+        /* Стили для модального окна */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            text-align: left;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .upgrade-item {
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
 
     <h1><i class="fas fa-gamepad"></i> Кликер игра</h1>
 
-    <!-- Кнопка для кликов -->
     <button id="clickButton">
         <i class="fas fa-mouse-pointer"></i> Кликни меня!
     </button>
 
-    <!-- Отображение счета -->
     <div id="score">Счет: 0</div>
-
-    <!-- Отображение уровня улучшений -->
     <div id="upgrades">Улучшения: 0</div>
 
-    <!-- Кнопка для улучшений -->
     <button id="upgradeButton">Купить улучшение (50 очков)</button>
+    <button id="shopButton">Магазин</button>
 
-    <!-- Иконка для настроения -->
     <div class="icon">
         <i class="fas fa-smile-beam"></i> Улыбнись и продолжай кликать!
     </div>
 
-    <!-- Звуковой эффект -->
     <audio id="clickSound" src="https://www.soundjay.com/button/sounds/button-1.mp3"></audio>
+
+    <!-- Модальное окно для магазина -->
+    <div id="shopModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Магазин улучшений</h2>
+            <div class="upgrade-item">
+                <span>Улучшение 1 (10 очков)</span>
+                <button class="buy-upgrade" data-cost="10">Купить</button>
+            </div>
+            <div class="upgrade-item">
+                <span>Улучшение 2 (20 очков)</span>
+                <button class="buy-upgrade" data-cost="20">Купить</button>
+            </div>
+            <div class="upgrade-item">
+                <span>Улучшение 3 (30 очков)</span>
+                <button class="buy-upgrade" data-cost="30">Купить</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         let score = 0;
@@ -110,13 +166,10 @@
         let pointsPerClick = 1;
 
         document.getElementById("clickButton").addEventListener("click", function() {
-            // Воспроизведение звукового эффекта
             document.getElementById("clickSound").play();
-
             score += pointsPerClick;
             document.getElementById("score").textContent = "Счет: " + score;
 
-            // Меняем иконку настроения в зависимости от счета
             const iconElement = document.querySelector('.icon i');
             if (score > 10) {
                 iconElement.className = "fas fa-laugh-beam";
@@ -128,17 +181,51 @@
 
         document.getElementById("upgradeButton").addEventListener("click", function() {
             if (score >= 50) {
-                score -= 50; // Уменьшаем счет на 50
-                upgrades++; // Увеличиваем уровень улучшений
-                pointsPerClick++; // Увеличиваем количество очков за клик
+                score -= 50;
+                upgrades++;
+                pointsPerClick++;
                 document.getElementById("score").textContent = "Счет: " + score;
                 document.getElementById("upgrades").textContent = "Улучшения: " + upgrades;
-
-                // Обновляем текст кнопки
                 this.textContent = "Купить улучшение (" + (50 * (upgrades + 1)) + " очков)";
             } else {
                 alert("У вас недостаточно очков для улучшения!");
             }
+        });
+
+        // Открытие модального окна магазина
+        const shopModal = document.getElementById("shopModal");
+        const shopButton = document.getElementById("shopButton");
+        const closeModal = document.getElementsByClassName("close")[0];
+
+        shopButton.onclick = function() {
+            shopModal.style.display = "block";
+        }
+
+        closeModal.onclick = function() {
+            shopModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == shopModal) {
+                shopModal.style.display = "none";
+            }
+        }
+
+        // Обработка покупки улучшений
+        const buyButtons = document.querySelectorAll(".buy-upgrade");
+        buyButtons.forEach(button => {
+            button.addEventListener("click", function() {
+                const cost = parseInt(this.getAttribute("data-cost"));
+                if (score >= cost) {
+                    score -= cost;
+                    pointsPerClick++; // Увеличиваем количество очков за клик
+                    document.getElementById("score").textContent = "Счет: " + score;
+                    alert("Вы купили улучшение за " + cost + " очков!");
+                    this.disabled = true; // Деактивируем кнопку после покупки
+                } else {
+                    alert("У вас недостаточно очков для покупки!");
+                }
+            });
         });
     </script>
 
