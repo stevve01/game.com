@@ -1,3 +1,46 @@
+// Простая регистрация
+function register() {
+    const email = document.getElementById('registerEmail').value;
+    const password = document.getElementById('registerPassword').value;
+    const registerMessage = document.getElementById('registerMessage');
+
+    // Проверяем, есть ли уже такой пользователь
+    if (localStorage.getItem(email)) {
+        registerMessage.innerText = 'Email already registered!';
+    } else {
+        // Сохраняем пользователя в localStorage
+        localStorage.setItem(email, password);
+        registerMessage.innerText = 'Registration successful! You can now log in.';
+    }
+}
+
+// Вход в систему
+function login() {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    const loginMessage = document.getElementById('loginMessage');
+
+    // Проверяем, есть ли такой пользователь и правильный ли пароль
+    const storedPassword = localStorage.getItem(email);
+    if (storedPassword === password) {
+        loginMessage.innerText = 'Login successful!';
+        // Здесь можно перенаправить пользователя на другую страницу или показать контент
+    } else {
+        loginMessage.innerText = 'Incorrect email or password.';
+    }
+}
+
+// Открытие и закрытие модальных окон
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style.display = 'block';
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style.display = 'none';
+}
+
 // Калькулятор
 let currentInput = '';
 let operator = '';
@@ -79,23 +122,4 @@ function updateDisplay() {
     document.getElementById('display').value = currentInput || previousInput || '0';
 }
 
-// Открытие и закрытие модальных окон
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.style.display = 'block';
-}
-
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.style.display = 'none';
-}
-
-// Часы и будильник
-function updateTime() {
-    const time = new Date();
-    document.getElementById('time').innerText = time.toLocaleTimeString();
-    setTimeout(updateTime, 1000);
-}
-
-// Остальные функции остаются без изменений...
 
