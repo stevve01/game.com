@@ -63,6 +63,34 @@ function setAlarm() {
 
 updateTime(); // Запуск часов
 
+// Таймер обратного отсчёта
+let timerInterval;
+
+function startTimer() {
+    const minutes = parseInt(document.getElementById('minutes').value);
+    const timerDisplay = document.getElementById('timerDisplay');
+    
+    if (isNaN(minutes) || minutes < 0) {
+        timerDisplay.innerText = 'Please enter a valid number of minutes';
+        return;
+    }
+
+    let timeLeft = minutes * 60;
+
+    timerInterval = setInterval(() => {
+        const minutesLeft = Math.floor(timeLeft / 60);
+        const secondsLeft = timeLeft % 60;
+        timerDisplay.innerText = `Time left: ${minutesLeft}:${secondsLeft < 10 ? '0' + secondsLeft : secondsLeft}`;
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            alert('Time\'s up!');
+        }
+
+        timeLeft--;
+    }, 1000);
+}
+
 // Генератор шуток
 const jokes = [
     "Why don't skeletons fight each other? They don't have the guts.",
@@ -74,6 +102,40 @@ function getJoke() {
     const randomIndex = Math.floor(Math.random() * jokes.length);
     document.getElementById('jokeDisplay').innerText = jokes[randomIndex];
 }
+
+// Геолокация
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        document.getElementById('locationDisplay').innerText = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    const { latitude, longitude } = position.coords;
+    document.getElementById('locationDisplay').innerText = `Latitude: ${latitude}, Longitude: ${longitude}`;
+}
+
+// Генерация QR-кода
+function generateQRCode() {
+    const qrInput = document.getElementById('qrInput').value;
+    const qrCodeContainer = document.getElementById('qrCode');
+
+    if (!qrInput) {
+        qrCodeContainer.innerHTML = 'Please enter text for QR code.';
+        return;
+    }
+
+    const qrCodeURL = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrInput)}`;
+    qrCodeContainer.innerHTML = `<img src="${qrCodeURL}" alt="QR Code">`;
+}
+
+// Переключение темы
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+});
 
 // Контактная форма
 document.getElementById('contactForm').addEventListener('submit', function(event) {
